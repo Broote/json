@@ -1,34 +1,33 @@
 import json
+import pdb
 
-def fplus(i):
-	return int(i['left']) + int(i['right'])
-
-def fminus(i):
-	return int(i['left']) - int(i['right'])
-	
-def fmul(i):
-	return int(i['left']) * int(i['right'])
-
-def fdiv(i):
-	return int(i['left']) / int(i['right'])
-	
-def fmore(i):
-	return int(i['left']) > int(i['right'])
-	
-def fless(i):
-	return int(i['left']) < int(i['right'])
-	
-def fif(i):
-	# if expr(i['first')
-	return 0
+def get_by_path(data, array):
+	current_path = data
+	for i in range(len(array)):
+		current_path = current_path[array[i]]
+	return current_path
 
 
-
-text = json.loads('{"program":[{"operation":"if", "first":"5<7", "second":"2-3", "third":"4-2"}, {"operation":"==", "left":"6", "right":"7"}]}')
+text = json.loads(str(open('json_prog', 'r').read()))
+print(text)
 prog = text['program']
-for i in prog:
-	if i['operation'] == "+":
-		print(fplus(i))
+data = text['data']
+next = prog[0]
+#while (current['operation'] != "end"):
+pdb.set_trace()
+while (next != "end"):
+	current = next
+	if current['operation'] == "linear_plus":
+		left = current['left']
+		right = current['right']
+		if left['type'] == "pointer":
+			left = get_by_path(text, left['path'])
+			right = get_by_path(text, right['path'])
+			current['result'] = left + right
+		next = current['next']	
+	
+
+if False: # комментарий
 	elif i['operation'] == "-":
 		print(fminus(i))
 	elif i['operation'] == "*":
