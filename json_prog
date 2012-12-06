@@ -1,0 +1,20 @@
+{
+	"program" : [ 
+		{
+			"operation" : "linear_plus",
+			"left" : {
+				"type" : "pointer",
+				"path" : ["data", "number1"]			
+			},
+			"right" : {
+				"type" : "pointer",
+				"path" : ["data", "number2"]			
+			},
+			"next" : "end"	
+		}
+	],
+	"data" : {
+		"number1" : 5,
+		"number2" : 3
+	}
+}
