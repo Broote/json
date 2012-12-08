@@ -11,10 +11,27 @@
 				"path" : ["data", "number2"]			
 			},
 			"next" : "end"	
+		},
+		{
+			"operation" : "linear_if",
+			"condition" : {
+				"type" : "pointer",
+				"path" : ["data", "if_condition"]
+			}		
+			"if_true" : {
+				"next" : "end"			
+			}
+			"if_false" : {
+				"next" : {
+					"type" : "pointer",
+					"path" : ["program", 0]
+				}		
+			}
 		}
 	],
 	"data" : {
 		"number1" : 5,
-		"number2" : 3
+		"number2" : 3,
+		"if_condition" : true
 	}
 }

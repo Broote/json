@@ -31,22 +31,22 @@ while (next != "end"):
 		left, right = binary_operation(current, text)
 		current['result'] = left + right
 		next = current['next']
-	
+	if current['operation'] == "linear_minus":
+		left, right = binary_operation(current, text)
+		current['result'] = left - right
+		next = current['next']
+	if current['operation'] == "linear_mult":
+		left, right = binary_operation(current, text)
+		current['result'] = left * right
+		next = current['next']
+	# не забыть про дробные
+	if current['operation'] == "linear_div":
+		left, right = binary_operation(current, text)
+		current['result'] = left / right
+		next = current['next']
+	if current['operation'] == "linear_if ":
+		left, right = binary_operation(current, text)
+		current['result'] = left / right
+		next = current['next']
 
-if False: # комментарий
-	if True:	
-		print("abc")
-	elif current['operation'] == "-":
-		print(fminus(i))
-	elif current['operation'] == "*":
-		print(fmul(i))
-	elif current['operation'] == "/":
-		print(fdiv(i))
-	elif current['operation'] == ">":
-		print(fmore(i))
-	elif current['operation'] == "<":
-		print(fless(i))
-	elif current['operation'] == "==":
-		print(fmore(i) or fless(i) == False)
-	elif current['operation'] == "if":
-		print(fif(i))
+
