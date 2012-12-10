@@ -17,10 +17,10 @@
 			"condition" : {
 				"type" : "pointer",
 				"path" : ["data", "if_condition"]
-			}		
+			},		
 			"if_true" : {
 				"next" : "end"			
-			}
+			},
 			"if_false" : {
 				"next" : {
 					"type" : "pointer",
@@ -32,6 +32,6 @@
 	"data" : {
 		"number1" : 5,
 		"number2" : 3,
-		"if_condition" : true
+		"if_condition" : false
 	}
 }
