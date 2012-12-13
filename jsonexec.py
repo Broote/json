@@ -1,6 +1,7 @@
 import json
 import pdb
 #pdb.set_trace()
+#implemented +, -, *, /, &&, ||, >, <, ==, if
 
 def get_by_path(data, array):
   current_path = data
@@ -39,20 +40,40 @@ while (next != "end"):
   if current['operation'] == "linear_plus":
     left, right = binary_operation(current, text)
     current['result'] = left + right
-    next = current['next']
+    next = get_next(current['next'])
   elif current['operation'] == "linear_minus":
     left, right = binary_operation(current, text)
     current['result'] = left - right
-    next = current['next']
+    next = get_next(current['next'])
   elif current['operation'] == "linear_mult":
     left, right = binary_operation(current, text)
     current['result'] = left * right
-    next = current['next']
+    next = get_next(current['next'])
   # не забыть про дробные
   elif current['operation'] == "linear_div":
     left, right = binary_operation(current, text)
     current['result'] = left / right
-    next = current['next']
+    next = get_next(current['next'])
+  elif current['operation'] == "linear_and":
+    left, right = binary_operation(current, text)
+    current['result'] = left and right
+    next = get_next(current['next'])
+  elif current['operation'] == "linear_or":
+    left, right = binary_operation(current, text)
+    current['result'] = left or right
+    next = get_next(current['next'])
+  elif current['operation'] == "linear_more":
+    left, right = binary_operation(current, text)
+    current['result'] = left > right
+    next = get_next(current['next'])
+  elif current['operation'] == "linear_less":
+    left, right = binary_operation(current, text)
+    current['result'] = left < right
+    next = get_next(current['next'])
+  elif current['operation'] == "linear_equal":
+    left, right = binary_operation(current, text)
+    current['result'] = left == right
+    next = get_next(current['next'])    
   elif current['operation'] == "linear_if":
     if current['condition']['type'] == "pointer":
       condition = get_by_path(text, current['condition']['path'])
@@ -60,3 +81,6 @@ while (next != "end"):
         next = get_next(current['if_true']['next'])
       if condition == False:
         next = get_next(current['if_false']['next'])  
+
+print("finish")
+print(text)

@@ -1,7 +1,7 @@
 {
 	"program" : [ 
 		{
-			"operation" : "linear_plus",
+			"operation" : "linear_or",
 			"left" : {
 				"type" : "pointer",
 				"path" : ["data", "number1"]			
@@ -30,8 +30,8 @@
 		}
 	],
 	"data" : {
-		"number1" : 5,
-		"number2" : 3,
+		"number1" : false,
+		"number2" : false,
 		"if_condition" : false
 	}
 }
