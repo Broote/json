@@ -4,11 +4,11 @@
 			"operation" : "linear_or",
 			"left" : {
 				"type" : "pointer",
-				"path" : ["data", "number1"]			
+				"path" : ["data", "bool1"]			
 			},
 			"right" : {
 				"type" : "pointer",
-				"path" : ["data", "number2"]			
+				"path" : ["data", "bool2"]			
 			},
 			"next" : "end"	
 		},
@@ -19,7 +19,10 @@
 				"path" : ["data", "if_condition"]
 			},		
 			"if_true" : {
-				"next" : "end"			
+				"next" : {
+					"type" : "pointer",
+					"path" : ["program", 2]
+				}			
 			},
 			"if_false" : {
 				"next" : {
@@ -27,11 +30,42 @@
 					"path" : ["program", 0]
 				}		
 			}
+		},
+		{
+		  "operation" : "linear_mult",
+			"left" : {
+				"type" : "pointer",
+				"path" : ["data", "number1"]			
+			},
+			"right" : {
+				"type" : "pointer",
+				"path" : ["data", "number2"]			
+			},
+			"next" : {
+					"type" : "pointer",
+					"path" : ["program", 3]
+			}
+		},
+		{
+		  "operation" : "linear_more",
+			"left" : {
+				"type" : "pointer",
+				"path" : ["data", "number3"]			
+			},
+			"right" : {
+				"type" : "pointer",
+				"path" : ["data", "number4"]			
+			},
+			"next" : "end"
 		}
 	],
 	"data" : {
-		"number1" : false,
-		"number2" : false,
-		"if_condition" : false
+		"bool1" : true,
+		"bool2" : false,
+		"number1" : 4,
+		"number2" : 11,
+		"number3" : 5,
+		"number4" : 6.6,
+		"if_condition" : true
 	}
 }
