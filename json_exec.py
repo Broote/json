@@ -37,7 +37,7 @@ print(text)
 prog = text['program']
 data = text['data']
 # входная точка
-next = prog[1]
+next = prog[0]
 while (next != "end"):
     current = next
     if current['operation'] == "linear_plus":
@@ -84,6 +84,12 @@ while (next != "end"):
                 next = get_next(current['if_true']['next'])
             if condition == False:
                 next = get_next(current['if_false']['next'])
+    elif current['operation'] == "linear_input":
+        print(data)
+        input('input address (example: "["data", "number4"]" ): ')
+        input('input data: ')
+        next = get_next(current['next'])
+
 
 print("finish")
 print(text)

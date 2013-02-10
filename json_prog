@@ -1,52 +1,6 @@
 {
 	"program" : [ 
 		{
-			"operation" : "linear_or",
-			"left" : {
-				"type" : "pointer",
-				"path" : ["data", "bool1"]			
-			},
-			"right" : {
-				"type" : "pointer",
-				"path" : ["data", "bool2"]			
-			},
-			"next" : "end"	
-		},
-		{
-			"operation" : "linear_if",
-			"condition" : {
-				"type" : "pointer",
-				"path" : ["data", "if_condition"]
-			},		
-			"if_true" : {
-				"next" : {
-					"type" : "pointer",
-					"path" : ["program", 2]
-				}			
-			},
-			"if_false" : {
-				"next" : {
-					"type" : "pointer",
-					"path" : ["program", 0]
-				}		
-			}
-		},
-		{
-		  "operation" : "linear_mult",
-			"left" : {
-				"type" : "pointer",
-				"path" : ["data", "number1"]			
-			},
-			"right" : {
-				"type" : "pointer",
-				"path" : ["data", "number2"]			
-			},
-			"next" : {
-					"type" : "pointer",
-					"path" : ["program", 3]
-			}
-		},
-		{
 		  "operation" : "linear_more",
 			"left" : {
 				"type" : "pointer",
@@ -56,7 +10,10 @@
 				"type" : "pointer",
 				"path" : ["data", "number4"]			
 			},
-			"next" : "end"
+      "next" : {
+          "type" : "pointer",
+          "path" : ["program", 1]
+      }
 		},
 		{
       "operation" : "linear_input",
@@ -71,7 +28,7 @@
 		  "this" : {
         "type" : "pointer",
         "path" : ["program", 5]
-		  }
+		  },
 		  "next" : "end"
 		}
 	],
