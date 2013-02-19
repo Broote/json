@@ -46,3 +46,16 @@
       "path" : ["program", 3]
   }
 }
+
+{
+  "operation" : "linear_call",
+  "address" : {
+    "type" : "pointer",
+    "path" : ["program", 0]
+  },
+  "this" : {
+    "type" : "pointer",
+    "path" : ["program", 5]
+  },
+  "next" : "end"
+}

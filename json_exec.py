@@ -10,6 +10,13 @@ def get_by_path(data, array):
         current_path = current_path[array[i]]
     return current_path
 
+def set_to_path(data, array, element):
+    current_path = data
+    for i in range(len(array)-1):
+        pdb.set_trace()
+        current_path = current_path[array[i]]
+    current_path[array[-1]] = element
+
 
 def binary_operation(current, text):
     left = current['left']
@@ -86,8 +93,9 @@ while (next != "end"):
                 next = get_next(current['if_false']['next'])
     elif current['operation'] == "linear_input":
         print(data)
-        input('input address (example: "["data", "number4"]" ): ')
-        input('input data: ')
+        address = input('input address (without key data, example:"number4" ): ')
+        user_input = input('input data: ')
+        set_to_path(data, address.split(':'), user_input)
         next = get_next(current['next'])
 
 
