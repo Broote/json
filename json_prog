@@ -10,48 +10,48 @@
 				"type" : "pointer",
 				"path" : ["data", "number4"]
 			},
-      "next" : {
-          "type" : "pointer",
-          "path" : ["program", 1]
-      }
+            "next" : {
+                "type" : "pointer",
+                "path" : ["program", 1]
+            }
 		},
 		{
-      "operation" : "linear_mult",
-      "left" : {
-        "type" : "pointer",
-        "path" : ["data", "number1"]
-      },
-      "right" : {
-        "type" : "pointer",
-        "path" : ["data", "number2"]
-      },
-      "next" : "end"
-    },
-		{
-		  "operation" : "linear_goto",
-		  "address" : {
-        "type" : "pointer",
-        "path" : ["program", 0]
-      }
-		},
-		{
-		  "operation" : "recursive-add",
-  		"left" : {
-  		  "operation" : "recursive-add",
-  		  "left" : {
-          "type" : "pointer",
-          "path" : ["data", "number1"]
+            "operation" : "linear_mult",
+            "left" : {
+                "type" : "pointer",
+                "path" : ["data", "number1"]
+            },
+            "right" : {
+                "type" : "pointer",
+                "path" : ["data", "number2"]
+            },
+            "next" : "end"
         },
-        "right" : {
-          "type" : "pointer",
-          "path" : ["data", "number2"]
+        {
+    	    "operation" : "linear_goto",
+    	    "address" : {
+            "type" : "pointer",
+                "path" : ["program", 0]
+            }
+		},
+		{
+		    "operation" : "recursive-add",
+  		    "left" : {
+  		        "operation" : "recursive-add",
+  		        "left" : {
+                    "type" : "pointer",
+                    "path" : ["data", "number1"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["data", "number2"]
+                }
+            },
+            "right":{
+                "type" : "pointer",
+                "path" : ["data", "number3"]
+            }
         }
-      },
-      "right":{
-        "type" : "pointer",
-        "path" : ["data", "number3"]
-      }
-    }
 	],
 	"data" : {
 		"bool1" : true,
