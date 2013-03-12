@@ -40,11 +40,11 @@ text = json.loads(str(f.read()))
 f.close()
 
 
-print(text)
+print(json.dumps(text))
 prog = text['program']
 data = text['data']
 # входная точка
-next = prog[0]
+next = prog[2]
 while (next != "end"):
     current = next
     if current['operation'] == "linear_plus":
@@ -98,8 +98,8 @@ while (next != "end"):
         set_to_path(data, address.split(':'), user_input)
         next = get_next(current['next'])
     elif current['operation'] == "linear_goto":
+        next = get_next(current['address'])
 
 
-
-print("finish")
-print(text)
+print("\n\n\n")
+print(json.dumps(text))

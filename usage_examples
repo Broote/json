@@ -31,19 +31,22 @@
   }
 }
 
+
+
 {
-  "operation" : "linear_mult",
-  "left" : {
-    "type" : "pointer",
-    "path" : ["data", "number1"]
-  },
-  "right" : {
-    "type" : "pointer",
-    "path" : ["data", "number2"]
-  },
-  "next" : {
-      "type" : "pointer",
-      "path" : ["program", 3]
-  }
-}
+      "operation" : "linear_input",
+      "next" : "end"
+    },
+    {
+      "operation" : "linear_call",
+      "address" : {
+        "type" : "pointer",
+        "path" : ["program", 0]
+      },
+      "this" : {
+        "type" : "pointer",
+        "path" : ["program", 5]
+      },
+      "next" : "end"
+    },
 

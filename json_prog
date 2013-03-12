@@ -16,28 +16,42 @@
       }
 		},
 		{
-      "operation" : "linear_input",
-      "next" : "end"
-		},
-		{
-		  "operation" : "linear_call",
-		  "address" : {
-		    "type" : "pointer",
-        "path" : ["program", 0]
-		  },
-		  "this" : {
+      "operation" : "linear_mult",
+      "left" : {
         "type" : "pointer",
-        "path" : ["program", 5]
-		  },
-		  "next" : "end"
-		},
+        "path" : ["data", "number1"]
+      },
+      "right" : {
+        "type" : "pointer",
+        "path" : ["data", "number2"]
+      },
+      "next" : "end"
+    },
 		{
 		  "operation" : "linear_goto",
 		  "address" : {
         "type" : "pointer",
         "path" : ["program", 0]
       }
-		}
+		},
+		{
+		  "operation" : "recursive-add",
+  		"left" : {
+  		  "operation" : "recursive-add",
+  		  "left" : {
+          "type" : "pointer",
+          "path" : ["data", "number1"]
+        },
+        "right" : {
+          "type" : "pointer",
+          "path" : ["data", "number2"]
+        }
+      },
+      "right":{
+        "type" : "pointer",
+        "path" : ["data", "number3"]
+      }
+    }
 	],
 	"data" : {
 		"bool1" : true,
