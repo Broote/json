@@ -47,57 +47,57 @@ data = text['data']
 next = prog[2]
 while (next != "end"):
     current = next
-    if current['operation'] == "linear_plus":
+    if current['type'] == "linear_plus":
         left, right = binary_operation(current, text)
         current['result'] = left + right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_minus":
+    elif current['type'] == "linear_minus":
         left, right = binary_operation(current, text)
         current['result'] = left - right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_mult":
+    elif current['type'] == "linear_mult":
         left, right = binary_operation(current, text)
         current['result'] = left * right
         next = get_next(current['next'])
   # не забыть про дробные
-    elif current['operation'] == "linear_div":
+    elif current['type'] == "linear_div":
         left, right = binary_operation(current, text)
         current['result'] = left / right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_and":
+    elif current['type'] == "linear_and":
         left, right = binary_operation(current, text)
         current['result'] = left and right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_or":
+    elif current['type'] == "linear_or":
         left, right = binary_operation(current, text)
         current['result'] = left or right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_more":
+    elif current['type'] == "linear_more":
         left, right = binary_operation(current, text)
         current['result'] = left > right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_less":
+    elif current['type'] == "linear_less":
         left, right = binary_operation(current, text)
         current['result'] = left < right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_equal":
+    elif current['type'] == "linear_equal":
         left, right = binary_operation(current, text)
         current['result'] = left == right
         next = get_next(current['next'])
-    elif current['operation'] == "linear_if":
+    elif current['type'] == "linear_if":
         if current['condition']['type'] == "pointer":
             condition = get_by_path(text, current['condition']['path'])
             if condition == True:
                 next = get_next(current['if_true']['next'])
             if condition == False:
                 next = get_next(current['if_false']['next'])
-    elif current['operation'] == "linear_input":
+    elif current['type'] == "linear_input":
         print(data)
         address = input('input address (without key data, example:"number4" ): ')
         user_input = input('input data: ')
         set_to_path(data, address.split(':'), user_input)
         next = get_next(current['next'])
-    elif current['operation'] == "linear_goto":
+    elif current['type'] == "linear_goto":
         next = get_next(current['address'])
 
 
