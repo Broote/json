@@ -1,7 +1,7 @@
 import json
 import pdb
 #pdb.set_trace()
-#implemented +, -, *, /, &&, ||, >, <, ==, if
+#implemented linear +, -, *, /, &&, ||, >, <, ==, if, input
 
 
 def get_by_path(data, array):
@@ -97,6 +97,8 @@ while (next != "end"):
         user_input = input('input data: ')
         set_to_path(data, address.split(':'), user_input)
         next = get_next(current['next'])
+    elif current['operation'] == "linear_goto":
+
 
 
 print("finish")

@@ -1,14 +1,14 @@
 {
-	"program" : [ 
-		{
+	"program" : [
+	  {
 		  "operation" : "linear_more",
 			"left" : {
 				"type" : "pointer",
-				"path" : ["data", "number3"]			
+				"path" : ["data", "number3"]
 			},
 			"right" : {
 				"type" : "pointer",
-				"path" : ["data", "number4"]			
+				"path" : ["data", "number4"]
 			},
       "next" : {
           "type" : "pointer",
@@ -18,8 +18,26 @@
 		{
       "operation" : "linear_input",
       "next" : "end"
+		},
+		{
+		  "operation" : "linear_call",
+		  "address" : {
+		    "type" : "pointer",
+        "path" : ["program", 0]
+		  },
+		  "this" : {
+        "type" : "pointer",
+        "path" : ["program", 5]
+		  },
+		  "next" : "end"
+		},
+		{
+		  "operation" : "linear_goto",
+		  "address" : {
+        "type" : "pointer",
+        "path" : ["program", 0]
+      }
 		}
-
 	],
 	"data" : {
 		"bool1" : true,
