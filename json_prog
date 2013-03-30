@@ -1,7 +1,7 @@
 {
 	"program" : [
 	  {
-		  "type" : "linear_more",
+		  "operation" : "linear_more",
 			"left" : {
 				"type" : "pointer",
 				"path" : ["data", "number3"]
@@ -16,7 +16,7 @@
             }
 		},
 		{
-            "type" : "linear_mult",
+            "operation" : "linear_mult",
             "left" : {
                 "type" : "pointer",
                 "path" : ["data", "number1"]
@@ -28,16 +28,16 @@
             "next" : "end"
         },
         {
-    	    "type" : "linear_goto",
+    	    "operation" : "linear_goto",
     	    "address" : {
             "type" : "pointer",
                 "path" : ["program", 0]
             }
 		},
 		{
-		    "type" : "recursive-add",
+		    "operation" : "recursive_add",
   		    "left" : {
-  		        "type" : "recursive-add",
+  		        "operation" : "recursive_add",
   		        "left" : {
                     "type" : "pointer",
                     "path" : ["data", "number1"]

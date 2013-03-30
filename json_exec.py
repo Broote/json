@@ -17,7 +17,6 @@ def set_to_path(data, array, element):
         current_path = current_path[array[i]]
     current_path[array[-1]] = element
 
-
 def binary_operation(current, text):
     left = current['left']
     right = current['right']
@@ -26,7 +25,6 @@ def binary_operation(current, text):
         right = get_by_path(text, right['path'])
         return left, right
 
-
 def get_next(next):
     if next == "end":
         return "end"
@@ -34,6 +32,10 @@ def get_next(next):
         # возвращается text['program'][number]
         # подумать, стоит ли каждый раз передавать program
         return text[next['path'][0]][next['path'][1]]
+        
+def stack_push(element, stack):
+    return stack.insert(0, element);
+    
 
 f = open('json_prog', 'r')
 text = json.loads(str(f.read()))
@@ -42,46 +44,45 @@ f.close()
 
 print(json.dumps(text))
 prog = text['program']
-data = text['data']
 # входная точка
 next = prog[2]
 while (next != "end"):
     current = next
     if current['type'] == "linear_plus":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left + right
         next = get_next(current['next'])
     elif current['type'] == "linear_minus":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left - right
         next = get_next(current['next'])
     elif current['type'] == "linear_mult":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left * right
         next = get_next(current['next'])
-  # не забыть про дробные
+    # не забыть про дробные
     elif current['type'] == "linear_div":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left / right
         next = get_next(current['next'])
     elif current['type'] == "linear_and":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left and right
         next = get_next(current['next'])
     elif current['type'] == "linear_or":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left or right
         next = get_next(current['next'])
     elif current['type'] == "linear_more":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left > right
         next = get_next(current['next'])
     elif current['type'] == "linear_less":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left < right
         next = get_next(current['next'])
     elif current['type'] == "linear_equal":
-        left, right = binary_operation(current, text)
+        left, right = binary_type(current, text)
         current['result'] = left == right
         next = get_next(current['next'])
     elif current['type'] == "linear_if":
@@ -99,6 +100,10 @@ while (next != "end"):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
+    elif current['type'] == "recursive_add":
+        if current['left']['type'] == "pointer":
+        else
+           text['data'] = stack_push("recursive_add", text['data'])
 
 
 print("\n\n\n")
