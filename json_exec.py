@@ -1,7 +1,7 @@
 import json
 import pdb
 #pdb.set_trace()
-#implemented linear +, -, *, /, &&, ||, >, <, ==, if, input
+#implemented linear +, -, *, /, &&, ||, >, <, ==, if, input, goto
 
 
 def get_by_path(data, array):
@@ -13,7 +13,6 @@ def get_by_path(data, array):
 def set_to_path(data, array, element):
     current_path = data
     for i in range(len(array)-1):
-        pdb.set_trace()
         current_path = current_path[array[i]]
     current_path[array[-1]] = element
 
@@ -25,19 +24,22 @@ def binary_operation(current, text):
         right = get_by_path(text, right['path'])
         return left, right
 
+# годится только для поинтеров вида ["program", 0].
+# надо переделать на более общий случай
 def get_next(next):
     if next == "end":
         return "end"
     elif next['type'] == "pointer":
-        # возвращается text['program'][number]
+        prog['current_address'] = next['path']
+        # возвращается text['program'][number], а если уровень глубже? TODO?
         # подумать, стоит ли каждый раз передавать program
         return text[next['path'][0]][next['path'][1]]
         
-def stack_push(element, stack):
-    return stack.insert(0, element);
+def stack_push(element):
+    text['stack'].insert(0, element);
     
 
-f = open('json_prog', 'r')
+f = open('prog.json', 'r')
 text = json.loads(str(f.read()))
 f.close()
 
@@ -45,7 +47,7 @@ f.close()
 print(json.dumps(text))
 prog = text['program']
 # входная точка
-next = prog[2]
+next = get_next(prog['current_address'])
 while (next != "end"):
     current = next
     if current['type'] == "linear_plus":
@@ -100,11 +102,16 @@ while (next != "end"):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
-    elif current['type'] == "recursive_add":
+    else current['type'] == "recursive_add":
+        stack_el = {}
+        stack_el['type'] = "operation"
+        stack_el['operation'] = "recursive_add"
+        stack_el['address']
         if current['left']['type'] == "pointer":
         else
-           text['data'] = stack_push("recursive_add", text['data'])
-
+            stack_el['right'] = current['right']
+            text['data'] = stack_push(stack_el, text['stack'])
+            next = current['left']
 
 print("\n\n\n")
 print(json.dumps(text))
