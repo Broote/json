@@ -36,7 +36,7 @@ def get_next(next):
         return text[next['path'][0]][next['path'][1]]
         
 def stack_push(element):
-    text['stack'].insert(0, element);
+    text['stack']['array'].insert(0, element);
     
 
 f = open('prog.json', 'r')
@@ -47,8 +47,9 @@ f.close()
 print(json.dumps(text))
 prog = text['program']
 decl = text['declarations']
+stack = text['stack'']
 # входная точка
-next = get_next(prog['stack']['array'][0]['current_address'])
+next = get_next(prog['stack']['array']['active']['current_address'])
 while (next != "end"):
     current = next
     if current['type'] == "linear_plus":
@@ -103,7 +104,13 @@ while (next != "end"):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
-    else declaration = decl[current_type]
+    else:
+        declaration = decl[current_type]
+        current_frame = stack['array'][stack['active']]
+        stack_element = { "instruction_pionter" : current_frame['instruction_pointer'].append(0), "this" : current_frame['instruction_pointer']}
+        stack_push(stack_element)
+        current_frame['instruction_pointer'][-1] += 1
+        stack['active'] += 1
         
 
 
