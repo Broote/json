@@ -46,8 +46,9 @@ f.close()
 
 print(json.dumps(text))
 prog = text['program']
+decl = text['declarations']
 # входная точка
-next = get_next(prog['current_address'])
+next = get_next(prog['stack']['array'][0]['current_address'])
 while (next != "end"):
     current = next
     if current['type'] == "linear_plus":
@@ -102,16 +103,9 @@ while (next != "end"):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
-    else current['type'] == "recursive_add":
-        stack_el = {}
-        stack_el['type'] = "operation"
-        stack_el['operation'] = "recursive_add"
-        stack_el['address']
-        if current['left']['type'] == "pointer":
-        else
-            stack_el['right'] = current['right']
-            text['data'] = stack_push(stack_el, text['stack'])
-            next = current['left']
+    else declaration = decl[current_type]
+        
+
 
 print("\n\n\n")
 print(json.dumps(text))

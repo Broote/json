@@ -1,7 +1,7 @@
 {
 	"program" : [
 	  {
-		  "operation" : "linear_more",
+		  "type" : "linear_more",
 			"left" : {
 				"type" : "pointer",
 				"path" : ["data", "number3"]
@@ -17,7 +17,7 @@
             }
 		},
 		{
-            "operation" : "linear_mult",
+            "type" : "linear_mult",
             "left" : {
                 "type" : "pointer",
                 "path" : ["data", "number1"]
@@ -29,31 +29,31 @@
             "next" : "end"
         },
         {
-    	    "operation" : "linear_goto",
+    	    "type" : "linear_goto",
     	    "address" : {
                 "type" : "pointer",
                 "path" : ["program", 0]
             }
 		},
 		{
-		    "operation" : "recursive_add",
+		    "type" : "recursive_add",
   		    "left" : {
-  		        "operation" : "linear_add",
+  		        "type" : "linear_add",
   		        "left" : {
                     "type" : "pointer",
                     "path" : ["data", "number1"]
                 },
                 "right" : {
-                    "operation" : "recursive_add",
+                    "type" : "recursive_add",
                         "left" : {
-                            "operation" : "linear_number",
+                            "type" : "linear_number",
                             "number" : {
                                 "type" : "pointer",
                                 "path" : ["data", "number1"]
                             }
                         },
                         "right" : {
-                            "operation" : "linear_add",
+                            "type" : "linear_add",
                             "left" : {
                                 "type" : "pointer",
                                 "path" : ["data", "number1"]
@@ -84,13 +84,13 @@
     "declarations" : {
         "recursive_add" : [
             {
-                "operation" : "calculate_left"
+                "type" : "calculate_left"
             },
             {
-                "operation" : "calculate_right"
+                "type" : "calculate_right"
             },
             {
-                "operation" : "linear_add",
+                "type" : "linear_add",
                 "left" : {
                     "type" : "pointer",
                     "path" : ["$current", "left-result"]
@@ -102,11 +102,13 @@
             }
         ]
     }
-    "stack" : [ 
-        1,
-        "current_address" : ["program", 0],
-        {
-            "instruction_pointer" : ["program", 0]
-        }
-    ]
+    "stack" : {
+        "active" : 1,
+        "array" : [
+            {
+                "current_address" : ["program", 0],
+                "instruction_pointer" : ["program", 0]
+            }
+        ]
+    }
 }
