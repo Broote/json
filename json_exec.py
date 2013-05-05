@@ -104,6 +104,8 @@ while (next != "end"):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
+    elif current['type'] == "calculate":
+        
     else:
         declaration = decl[current['type']
         current_frame = stack['array'][stack['active']]
