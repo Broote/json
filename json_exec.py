@@ -34,10 +34,10 @@ def get_next(next):
         # возвращается text['program'][number], а если уровень глубже? TODO?
         # подумать, стоит ли каждый раз передавать program
         return text[next['path'][0]][next['path'][1]]
-        
+
 def stack_push(element):
     text['stack']['array'].insert(0, element);
-    
+
 
 f = open('prog.json', 'r')
 text = json.loads(str(f.read()))
@@ -105,13 +105,11 @@ while (next != "end"):
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
     else:
-        declaration = decl[current_type]
+        declaration = decl[current['type']
         current_frame = stack['array'][stack['active']]
-        stack_element = { "instruction_pionter" : current_frame['instruction_pointer'].append(0), "this" : current_frame['instruction_pointer']}
-        stack_push(stack_element)
+        new_stack_element = { "instruction_pionter" : ["declarations", current['type'], 0], "this" : current_frame['instruction_pointer']}
+        stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
-        stack['active'] += 1
-        
 
 
 print("\n\n\n")

@@ -1,45 +1,10 @@
 {
-	"program" : [
-	  {
-		  "type" : "linear_more",
-			"left" : {
-				"type" : "pointer",
-				"path" : ["data", "number3"]
-			},
-			"right" : {
-				"type" : "pointer",
-
-				"path" : ["data", "number4"]
-			},
-            "next" : {
-                "type" : "pointer",
-                "path" : ["program", 1]
-            }
-		},
-		{
-            "type" : "linear_mult",
-            "left" : {
-                "type" : "pointer",
-                "path" : ["data", "number1"]
-            },
-            "right" : {
-                "type" : "pointer",
-                "path" : ["data", "number2"]
-            },
-            "next" : "end"
-        },
+    "program" : [
         {
-    	    "type" : "linear_goto",
-    	    "address" : {
-                "type" : "pointer",
-                "path" : ["program", 0]
-            }
-		},
-		{
-		    "type" : "recursive_add",
-  		    "left" : {
-  		        "type" : "linear_add",
-  		        "left" : {
+            "type" : "recursive_add",
+            "left" : {
+                "type" : "linear_add",
+                "left" : {
                     "type" : "pointer",
                     "path" : ["data", "number1"]
                 },
@@ -71,33 +36,37 @@
                 "path" : ["data", "number3"]
             }
         }
-	],
-	"data" : {
-		"bool1" : true,
-		"bool2" : false,
-		"number1" : 4,
-		"number2" : 11,
-		"number3" : 5,
-		"number4" : 6.6,
-		"if_condition" : true
-	},
+    ],
+    "data" : {
+        "bool1" : true,
+        "bool2" : false,
+        "number1" : 4,
+        "number2" : 11,
+        "number3" : 5,
+        "number4" : 6.6,
+        "if_condition" : true
+    },
     "declarations" : {
         "recursive_add" : [
             {
-                "type" : "calculate_left"
+                "type" : "calculate",
+                "path" : "left",
+                "result_path" : "left-result"
             },
             {
-                "type" : "calculate_right"
+                "type" : "calculate",
+                "path" : "right",
+                "result_path" : "left-result"
             },
             {
                 "type" : "linear_add",
                 "left" : {
                     "type" : "pointer",
-                    "path" : ["$current", "left-result"]
+                    "path" : ["declarations", "recursive_add", "left-result"]
                 },
                 "right" : {
                     "type" : "pointer",
-                    "path" : ["$current", "left-result"]
+                    "path" : ["declarations", "recursive_add", "right-result"]
                 }
             }
         ]
@@ -106,8 +75,11 @@
         "active" : 1,
         "array" : [
             {
-                "current_address" : ["program", 0],
-                "instruction_pointer" : ["program", 0]
+                "instruction_pointer" : ["program", 1]
+            },
+            {
+                "instruction_pointer" : ["declarations", "recursive_add", 0],
+                "this" : ["program", 0]
             }
         ]
     }

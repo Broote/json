@@ -1,4 +1,40 @@
 {
+            "type" : "linear_more",
+            "left" : {
+                "type" : "pointer",
+                "path" : ["data", "number3"]
+            },
+            "right" : {
+                "type" : "pointer",
+                "path" : ["data", "number4"]
+            },
+            "next" : {
+                "type" : "pointer",
+                "path" : ["program", 1]
+            }
+        },
+        {
+            "type" : "linear_mult",
+            "left" : {
+                "type" : "pointer",
+                "path" : ["data", "number1"]
+            },
+            "right" : {
+                "type" : "pointer",
+                "path" : ["data", "number2"]
+            },
+            "next" : "end"
+        },
+        {
+            "type" : "linear_goto",
+            "address" : {
+                "type" : "pointer",
+                "path" : ["program", 0]
+            }
+        },
+        
+
+{
   "operation" : "linear_or",
   "left" : {
     "type" : "pointer",
