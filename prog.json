@@ -15,7 +15,8 @@
                             "number" : {
                                 "type" : "pointer",
                                 "path" : ["data", "number1"]
-                            }
+                            },
+                            "result_path" : "result"
                         },
                         "right" : {
                             "type" : "linear_add",
@@ -26,10 +27,12 @@
                             "right" : {
                                 "type" : "pointer",
                                 "path" : ["data", "number1"]
-                            }
+                            },
+                            "result_path" : "result"
                         }
                     }
-                 }
+                },
+                "result_path" : "result"
             },
             "right" : {
                 "type" : "pointer",
@@ -51,12 +54,18 @@
             {
                 "type" : "calculate",
                 "path" : "left",
-                "result_path" : "left-result"
+                "result_path" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_add", "left-result"]
+                }
             },
             {
                 "type" : "calculate",
                 "path" : "right",
-                "result_path" : "left-result"
+                "result_path" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_add", "left-result"]
+                }
             },
             {
                 "type" : "linear_add",
@@ -67,12 +76,13 @@
                 "right" : {
                     "type" : "pointer",
                     "path" : ["declarations", "recursive_add", "right-result"]
-                }
+                },
+                "result_path" : "result"
             }
         ]
     }
     "stack" : {
-        "active" : 1,
+        "active" : 0,
         "array" : [
             {
                 "instruction_pointer" : ["program", 1]

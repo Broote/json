@@ -36,8 +36,10 @@ def get_next(next):
         return text[next['path'][0]][next['path'][1]]
 
 def stack_push(element):
-    text['stack']['array'].insert(0, element);
+    text['stack']['array'].insert(0, element)
 
+def get_current_frame:
+    return stack['array'][stack['active']]
 
 f = open('prog.json', 'r')
 text = json.loads(str(f.read()))
@@ -50,44 +52,45 @@ decl = text['declarations']
 stack = text['stack'']
 # входная точка
 next = get_next(prog['stack']['array']['active']['current_address'])
-while (next != "end"):
+while (stack['active'] >= 0):
     current = next
     if current['type'] == "linear_plus":
         left, right = binary_type(current, text)
-        current['result'] = left + right
+        # не забыть если result_path нет, сделать по умолчанию 'result'
+        current[current[result_path]] = left + right
         next = get_next(current['next'])
     elif current['type'] == "linear_minus":
         left, right = binary_type(current, text)
-        current['result'] = left - right
+        current[current[result_path]] = left - right
         next = get_next(current['next'])
     elif current['type'] == "linear_mult":
         left, right = binary_type(current, text)
-        current['result'] = left * right
+        current[current[result_path]] = left * right
         next = get_next(current['next'])
     # не забыть про дробные
     elif current['type'] == "linear_div":
         left, right = binary_type(current, text)
-        current['result'] = left / right
+        current[current[result_path]] = left / right
         next = get_next(current['next'])
     elif current['type'] == "linear_and":
         left, right = binary_type(current, text)
-        current['result'] = left and right
+        current[current[result_path]] = left and right
         next = get_next(current['next'])
     elif current['type'] == "linear_or":
         left, right = binary_type(current, text)
-        current['result'] = left or right
+        current[current[result_path]] = left or right
         next = get_next(current['next'])
     elif current['type'] == "linear_more":
         left, right = binary_type(current, text)
-        current['result'] = left > right
+        current[current[result_path]] = left > right
         next = get_next(current['next'])
     elif current['type'] == "linear_less":
         left, right = binary_type(current, text)
-        current['result'] = left < right
+        current[current[result_path]] = left < right
         next = get_next(current['next'])
     elif current['type'] == "linear_equal":
         left, right = binary_type(current, text)
-        current['result'] = left == right
+        current[current[result_path]] = left == right
         next = get_next(current['next'])
     elif current['type'] == "linear_if":
         if current['condition']['type'] == "pointer":
@@ -105,13 +108,23 @@ while (next != "end"):
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
     elif current['type'] == "calculate":
-        
+        current_frame = get_current_frame
+        new_stack_element = { "instruction_pionter" : [current_frame['this'] + [current[path]], 0], "this" : current_frame['instruction_pointer']}
+        stack_push(new_stack_element)
+        current_frame['instruction_pointer'][-1] += 1
+        stack['active'] = 0
     else:
-        declaration = decl[current['type']
-        current_frame = stack['array'][stack['active']]
+        current_frame = get_current_frame
         new_stack_element = { "instruction_pionter" : ["declarations", current['type'], 0], "this" : current_frame['instruction_pointer']}
         stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
+        stack['active'] = 0
+    if next == "end":
+        current_frame = get_current_frame
+        del current_frame['instruction_pointer']
+        while !("instruction_pointer" in current_frame):
+            stack['active'] += 1
+            current_frame = get_current_frame
 
 
 print("\n\n\n")
