@@ -1,13 +1,14 @@
 import json
 import pdb
+import copy
 #pdb.set_trace()
 #implemented linear +, -, *, /, &&, ||, >, <, ==, if, input, goto
 
 
-def get_by_path(data, array):
+def get_by_path(data, path):
     current_path = data
-    for i in range(len(array)):
-        current_path = current_path[array[i]]
+    for i in range(len(path)):
+        current_path = current_path[path[i]]
     return current_path
 
 def set_to_path(data, array, element):
@@ -26,14 +27,24 @@ def binary_operation(current, text):
 
 # годится только для поинтеров вида ["program", 0].
 # надо переделать на более общий случай
-def get_next(next):
-    if next == "end":
-        return "end"
-    elif next['type'] == "pointer":
-        prog['current_address'] = next['path']
+#def get_next(next):
+#    if next == "end":
+#        return "end"
+#    elif next['type'] == "pointer":
+#        prog['current_address'] = next['path']
         # возвращается text['program'][number], а если уровень глубже? TODO?
         # подумать, стоит ли каждый раз передавать program
-        return text[next['path'][0]][next['path'][1]]
+#        return text[next['path'][0]][next['path'][1]]
+
+def get_next(data, path):
+    current_path = data
+    for i in range(len(path)-1):
+        current_path = current_path[path[i]]
+    if len(current_path) <= path[-1]:
+        return "end"
+    else:
+        return current_path[path[-1]]
+
 
 def stack_push(element):
     text['stack']['array'].insert(0, element)
@@ -52,14 +63,19 @@ text = json.loads(str(f.read()))
 f.close()
 
 
-print(json.dumps(text))
+#print(json.dumps(text))
 prog = text['program']
 decl = text['declarations']
 stack = text['stack']
-# входная точка
-next = get_next(prog['stack']['array']['active']['current_address'])
+#pdb.set_trace()
+#next = get_next(prog['stack']['array']['active']['current_address'])
+current_frame = get_current_frame(stack)
+next = get_next(text, current_frame['instruction_pointer'])
+
 while (stack['active'] >= 0):
     current = next
+    #print("1111111")
+    #print(current)
     if current['type'] == "linear_add":
         left, right = binary_type(current, text)
         # не забыть если result_path нет, сделать по умолчанию 'result'
@@ -116,18 +132,20 @@ while (stack['active'] >= 0):
         next = get_next(current['address'])
     elif current['type'] == "linear_call":
         current_frame = get_current_frame(stack)
-        new_stack_element = { "instruction_pointer" : [current_frame['this'] + [current[path]], 0],
-                              "this" : current_frame['instruction_pointer'],
+        new_stack_element = { "instruction_pointer" : copy.deepcopy(current_frame['this']) + [current['path']] + [0],
+                              "this" : copy.deepcopy(current_frame['instruction_pointer']),
                               "result_path" : current['result_path'] }
         stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
     else:
         current_frame = get_current_frame(stack)
-        new_stack_element = { "instruction_pionter" : ["declarations", current['type'], 0], "this" : current_frame['instruction_pointer']}
+        new_stack_element = { "instruction_pointer" : ["declarations", current['type'], 0], "this" : copy.deepcopy(current_frame['instruction_pointer'])}
         stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
+    current_frame = get_current_frame(stack)
+    next = get_next(text, current_frame['instruction_pointer'])
     if next == "end":
         current_frame = get_current_frame(stack)
         del current_frame['instruction_pointer']
