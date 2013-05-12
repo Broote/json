@@ -10,33 +10,40 @@
                 },
                 "right" : {
                     "type" : "recursive_add",
+                    "left" : {
+                        "type" : "linear_add",
                         "left" : {
-                            "type" : "linear_number",
-                            "number" : {
-                                "type" : "pointer",
-                                "path" : ["data", "number1"]
-                            },
-                            "result_path" : "result"
+                            "type" : "pointer",
+                            "path" : ["data", "number1"]
                         },
                         "right" : {
-                            "type" : "linear_add",
-                            "left" : {
-                                "type" : "pointer",
-                                "path" : ["data", "number1"]
-                            },
-                            "right" : {
-                                "type" : "pointer",
-                                "path" : ["data", "number1"]
-                            },
-                            "result_path" : "result"
+                            "type" : "pointer",
+                            "path" : ["data", "number1"]
+                        }
+                    },
+                    "right" : {
+                        "type" : "linear_add",
+                        "left" : {
+                            "type" : "pointer",
+                            "path" : ["data", "number1"]
+                        },
+                        "right" : {
+                            "type" : "pointer",
+                            "path" : ["data", "number1"]
                         }
                     }
-                },
-                "result_path" : "result"
+                }
             },
             "right" : {
-                "type" : "pointer",
-                "path" : ["data", "number3"]
+                "type" : "linear_add",
+                "left" : {
+                    "type" : "pointer",
+                    "path" : ["data", "number1"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["data", "number1"]
+                }
             }
         }
     ],
@@ -52,20 +59,14 @@
     "declarations" : {
         "recursive_add" : [
             {
-                "type" : "calculate",
+                "type" : "linear_call",
                 "path" : "left",
-                "result_path" : {
-                    "type" : "pointer",
-                    "path" : ["declarations", "recursive_add", "left-result"]
-                }
+                "result_path" : ["declarations", "recursive_add", "left-result"]
             },
             {
-                "type" : "calculate",
+                "type" : "linear_call",
                 "path" : "right",
-                "result_path" : {
-                    "type" : "pointer",
-                    "path" : ["declarations", "recursive_add", "left-result"]
-                }
+                "result_path" : ["declarations", "recursive_add", "right-result"]
             },
             {
                 "type" : "linear_add",
@@ -76,20 +77,16 @@
                 "right" : {
                     "type" : "pointer",
                     "path" : ["declarations", "recursive_add", "right-result"]
-                },
-                "result_path" : "result"
+                }
             }
         ]
-    }
+    },
     "stack" : {
         "active" : 0,
         "array" : [
             {
-                "instruction_pointer" : ["program", 1]
-            },
-            {
-                "instruction_pointer" : ["declarations", "recursive_add", 0],
-                "this" : ["program", 0]
+                "instruction_pointer" : ["program", 0],
+                "result_path" : ["data", "number8"]
             }
         ]
     }

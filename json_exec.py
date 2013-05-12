@@ -38,8 +38,14 @@ def get_next(next):
 def stack_push(element):
     text['stack']['array'].insert(0, element)
 
-def get_current_frame:
+def get_current_frame(stack):
     return stack['array'][stack['active']]
+
+def get_result_path(current, stack):
+    if "result_path" in current:
+        return current['result_path']
+    else:
+        return get_current_frame(stack)['result_path']
 
 f = open('prog.json', 'r')
 text = json.loads(str(f.read()))
@@ -49,17 +55,18 @@ f.close()
 print(json.dumps(text))
 prog = text['program']
 decl = text['declarations']
-stack = text['stack'']
+stack = text['stack']
 # входная точка
 next = get_next(prog['stack']['array']['active']['current_address'])
 while (stack['active'] >= 0):
     current = next
-    if current['type'] == "linear_plus":
+    if current['type'] == "linear_add":
         left, right = binary_type(current, text)
         # не забыть если result_path нет, сделать по умолчанию 'result'
-        current[current[result_path]] = left + right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_minus":
+        result = left + right
+        set_to_path(text, get_result_path(current, stack), result)
+        # next = get_next(current['next'])
+    elif current['type'] == "linear_sub":
         left, right = binary_type(current, text)
         current[current[result_path]] = left - right
         next = get_next(current['next'])
@@ -107,24 +114,26 @@ while (stack['active'] >= 0):
         next = get_next(current['next'])
     elif current['type'] == "linear_goto":
         next = get_next(current['address'])
-    elif current['type'] == "calculate":
-        current_frame = get_current_frame
-        new_stack_element = { "instruction_pionter" : [current_frame['this'] + [current[path]], 0], "this" : current_frame['instruction_pointer']}
+    elif current['type'] == "linear_call":
+        current_frame = get_current_frame(stack)
+        new_stack_element = { "instruction_pointer" : [current_frame['this'] + [current[path]], 0],
+                              "this" : current_frame['instruction_pointer'],
+                              "result_path" : current['result_path'] }
         stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
     else:
-        current_frame = get_current_frame
+        current_frame = get_current_frame(stack)
         new_stack_element = { "instruction_pionter" : ["declarations", current['type'], 0], "this" : current_frame['instruction_pointer']}
         stack_push(new_stack_element)
         current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
     if next == "end":
-        current_frame = get_current_frame
+        current_frame = get_current_frame(stack)
         del current_frame['instruction_pointer']
-        while !("instruction_pointer" in current_frame):
+        while not("instruction_pointer" in current_frame):
             stack['active'] += 1
-            current_frame = get_current_frame
+            current_frame = get_current_frame(stack)
 
 
 print("\n\n\n")
