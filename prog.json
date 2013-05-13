@@ -2,56 +2,39 @@
     "program" : [
         {
             "type" : "recursive_add",
-            "left" : {
-                "type" : "linear_add",
-                "left" : {
-                    "type" : "pointer",
-                    "path" : ["data", "number1"]
-                },
-                "right" : {
-                    "type" : "recursive_add",
+            "left" : [
+                {
+                    "type" : "linear_add",
                     "left" : {
-                        "type" : "linear_add",
-                        "left" : {
-                            "type" : "pointer",
-                            "path" : ["data", "number1"]
-                        },
-                        "right" : {
-                            "type" : "pointer",
-                            "path" : ["data", "number1"]
-                        }
+                        "type" : "pointer",
+                        "path" : ["data", "number1"]
                     },
                     "right" : {
-                        "type" : "linear_add",
-                        "left" : {
-                            "type" : "pointer",
-                            "path" : ["data", "number1"]
-                        },
-                        "right" : {
-                            "type" : "pointer",
-                            "path" : ["data", "number1"]
-                        }
+                        "type" : "pointer",
+                        "path" : ["data", "number2"]
                     }
                 }
-            },
-            "right" : {
-                "type" : "linear_add",
-                "left" : {
-                    "type" : "pointer",
-                    "path" : ["data", "number1"]
-                },
-                "right" : {
-                    "type" : "pointer",
-                    "path" : ["data", "number1"]
+            ],
+            "right" : [
+                {
+                    "type" : "linear_add",
+                    "left" : {
+                        "type" : "pointer",
+                        "path" : ["data", "number1"]
+                    },
+                    "right" : {
+                        "type" : "pointer",
+                        "path" : ["data", "number1"]
+                    }
                 }
-            }
+            ]
         }
     ],
     "data" : {
         "bool1" : true,
         "bool2" : false,
         "number1" : 4,
-        "number2" : 11,
+        "number2" : 11111111111111,
         "number3" : 5,
         "number4" : 6.6,
         "if_condition" : true
@@ -61,22 +44,22 @@
             {
                 "type" : "linear_call",
                 "path" : "left",
-                "result_path" : ["declarations", "recursive_add", "left-result"]
+                "result_path" : ["declarations", "recursive_add", 2, "left-result"]
             },
             {
                 "type" : "linear_call",
                 "path" : "right",
-                "result_path" : ["declarations", "recursive_add", "right-result"]
+                "result_path" : ["declarations", "recursive_add", 2, "right-result"]
             },
             {
                 "type" : "linear_add",
                 "left" : {
                     "type" : "pointer",
-                    "path" : ["declarations", "recursive_add", "left-result"]
+                    "path" : ["declarations", "recursive_add", 2, "left-result"]
                 },
                 "right" : {
                     "type" : "pointer",
-                    "path" : ["declarations", "recursive_add", "right-result"]
+                    "path" : ["declarations", "recursive_add", 2, "right-result"]
                 }
             }
         ]

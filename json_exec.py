@@ -17,7 +17,7 @@ def set_to_path(data, array, element):
         current_path = current_path[array[i]]
     current_path[array[-1]] = element
 
-def binary_operation(current, text):
+def binary_type(current, text):
     left = current['left']
     right = current['right']
     if left['type'] == "pointer":
@@ -40,6 +40,7 @@ def get_next(data, path):
     current_path = data
     for i in range(len(path)-1):
         current_path = current_path[path[i]]
+    #if (isinstance(path[-1], int) and len(current_path) <= path[-1]):
     if len(current_path) <= path[-1]:
         return "end"
     else:
@@ -67,13 +68,16 @@ f.close()
 prog = text['program']
 decl = text['declarations']
 stack = text['stack']
-#pdb.set_trace()
+pdb.set_trace()
 #next = get_next(prog['stack']['array']['active']['current_address'])
 current_frame = get_current_frame(stack)
 next = get_next(text, current_frame['instruction_pointer'])
 
-while (stack['active'] >= 0):
-    current = next
+#while (stack['active'] >= 0):
+i=0
+while (i<100):
+    i+=1
+    current = get_next(text, current_frame['instruction_pointer'])
     #print("1111111")
     #print(current)
     if current['type'] == "linear_add":
@@ -136,17 +140,18 @@ while (stack['active'] >= 0):
                               "this" : copy.deepcopy(current_frame['instruction_pointer']),
                               "result_path" : current['result_path'] }
         stack_push(new_stack_element)
-        current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
     else:
         current_frame = get_current_frame(stack)
         new_stack_element = { "instruction_pointer" : ["declarations", current['type'], 0], "this" : copy.deepcopy(current_frame['instruction_pointer'])}
         stack_push(new_stack_element)
-        current_frame['instruction_pointer'][-1] += 1
         stack['active'] = 0
     current_frame = get_current_frame(stack)
+    current_frame['instruction_pointer'][-1] += 1
     next = get_next(text, current_frame['instruction_pointer'])
+    print(i)
     if next == "end":
+        print(i)
         current_frame = get_current_frame(stack)
         del current_frame['instruction_pointer']
         while not("instruction_pointer" in current_frame):
