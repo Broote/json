@@ -51,7 +51,10 @@ def stack_push(element):
     text['stack']['array'].insert(0, element)
 
 def get_current_frame(stack):
-    return stack['array'][stack['active']]
+    if (len(stack['array']) > stack['active']):
+        return stack['array'][stack['active']]
+    else:
+        return False
 
 def get_result_path(current, stack):
     if "result_path" in current:
@@ -68,16 +71,16 @@ f.close()
 prog = text['program']
 decl = text['declarations']
 stack = text['stack']
-pdb.set_trace()
+#pdb.set_trace()
 #next = get_next(prog['stack']['array']['active']['current_address'])
 current_frame = get_current_frame(stack)
 next = get_next(text, current_frame['instruction_pointer'])
 
 #while (stack['active'] >= 0):
 i=0
-while (i<100):
+while (i<100 and current_frame):
     i+=1
-    current = get_next(text, current_frame['instruction_pointer'])
+    current = next
     #print("1111111")
     #print(current)
     if current['type'] == "linear_add":
@@ -144,7 +147,9 @@ while (i<100):
         stack['active'] = 0
     else:
         current_frame = get_current_frame(stack)
-        new_stack_element = { "instruction_pointer" : ["declarations", current['type'], -1], "this" : copy.deepcopy(current_frame['instruction_pointer'])}
+        new_stack_element = { "instruction_pointer" : ["declarations", current['type'], -1],
+                            "this" : copy.deepcopy(current_frame['instruction_pointer']),
+                            "result_path" : get_result_path(current, stack) }
         current_frame['instruction_pointer'][-1] += 1
         stack_push(new_stack_element)
         stack['active'] = 0
@@ -152,13 +157,15 @@ while (i<100):
     current_frame['instruction_pointer'][-1] += 1
     next = get_next(text, current_frame['instruction_pointer'])
     print(i)
-    if next == "end":
+    while next == "end" and current_frame:
         print(i)
         current_frame = get_current_frame(stack)
         del current_frame['instruction_pointer']
-        while not("instruction_pointer" in current_frame):
+        while (current_frame and(not("instruction_pointer" in current_frame))):
             stack['active'] += 1
             current_frame = get_current_frame(stack)
+        if current_frame:
+            next = get_next(text, current_frame['instruction_pointer'])
 
 
 print("\n\n\n")

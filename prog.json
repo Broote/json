@@ -20,11 +20,11 @@
                     "type" : "linear_add",
                     "left" : {
                         "type" : "pointer",
-                        "path" : ["data", "number1"]
+                        "path" : ["data", "number3"]
                     },
                     "right" : {
                         "type" : "pointer",
-                        "path" : ["data", "number1"]
+                        "path" : ["data", "number4"]
                     }
                 }
             ]
