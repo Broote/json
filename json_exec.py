@@ -136,14 +136,16 @@ while (i<100):
         next = get_next(current['address'])
     elif current['type'] == "linear_call":
         current_frame = get_current_frame(stack)
-        new_stack_element = { "instruction_pointer" : copy.deepcopy(current_frame['this']) + [current['path']] + [0],
+        new_stack_element = { "instruction_pointer" : copy.deepcopy(current_frame['this']) + [current['path']] + [-1],
                               "this" : copy.deepcopy(current_frame['instruction_pointer']),
                               "result_path" : current['result_path'] }
+        current_frame['instruction_pointer'][-1] += 1
         stack_push(new_stack_element)
         stack['active'] = 0
     else:
         current_frame = get_current_frame(stack)
-        new_stack_element = { "instruction_pointer" : ["declarations", current['type'], 0], "this" : copy.deepcopy(current_frame['instruction_pointer'])}
+        new_stack_element = { "instruction_pointer" : ["declarations", current['type'], -1], "this" : copy.deepcopy(current_frame['instruction_pointer'])}
+        current_frame['instruction_pointer'][-1] += 1
         stack_push(new_stack_element)
         stack['active'] = 0
     current_frame = get_current_frame(stack)
