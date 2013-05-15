@@ -2,7 +2,6 @@ import json
 import pdb
 import copy
 #pdb.set_trace()
-#implemented linear +, -, *, /, &&, ||, >, <, ==, if, input, goto
 
 
 def get_by_path(data, path):
@@ -25,22 +24,10 @@ def binary_type(current, text):
         right = get_by_path(text, right['path'])
         return left, right
 
-# годится только для поинтеров вида ["program", 0].
-# надо переделать на более общий случай
-#def get_next(next):
-#    if next == "end":
-#        return "end"
-#    elif next['type'] == "pointer":
-#        prog['current_address'] = next['path']
-        # возвращается text['program'][number], а если уровень глубже? TODO?
-        # подумать, стоит ли каждый раз передавать program
-#        return text[next['path'][0]][next['path'][1]]
-
 def get_next(data, path):
     current_path = data
     for i in range(len(path)-1):
         current_path = current_path[path[i]]
-    #if (isinstance(path[-1], int) and len(current_path) <= path[-1]):
     if len(current_path) <= path[-1]:
         return "end"
     else:
@@ -67,22 +54,17 @@ text = json.loads(str(f.read()))
 f.close()
 
 
-#print(json.dumps(text))
 prog = text['program']
 decl = text['declarations']
 stack = text['stack']
 #pdb.set_trace()
-#next = get_next(prog['stack']['array']['active']['current_address'])
 current_frame = get_current_frame(stack)
 next = get_next(text, current_frame['instruction_pointer'])
 
-#while (stack['active'] >= 0):
 i=0
 while (i<100 and current_frame):
     i+=1
     current = next
-    #print("1111111")
-    #print(current)
     if current['type'] == "linear_add":
         left, right = binary_type(current, text)
         # не забыть если result_path нет, сделать по умолчанию 'result'
@@ -168,5 +150,5 @@ while (i<100 and current_frame):
             next = get_next(text, current_frame['instruction_pointer'])
 
 
-print("\n\n\n")
+print("\n\n")
 print(json.dumps(text))

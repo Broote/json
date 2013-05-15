@@ -4,15 +4,33 @@
             "type" : "recursive_add",
             "left" : [
                 {
-                    "type" : "linear_add",
-                    "left" : {
-                        "type" : "pointer",
-                        "path" : ["data", "number1"]
-                    },
-                    "right" : {
-                        "type" : "pointer",
-                        "path" : ["data", "number2"]
-                    }
+                    "type" : "recursive_add",
+                    "left" : [
+                        {
+                            "type" : "linear_add",
+                            "left" : {
+                                "type" : "pointer",
+                                "path" : ["data", "number1"]
+                            },
+                            "right" : {
+                                "type" : "pointer",
+                                "path" : ["data", "number2"]
+                            }
+                        }
+                    ],
+                    "right" : [
+                        {
+                            "type" : "linear_add",
+                            "left" : {
+                                "type" : "pointer",
+                                "path" : ["data", "number3"]
+                            },
+                            "right" : {
+                                "type" : "pointer",
+                                "path" : ["data", "number4"]
+                            }
+                        }
+                    ]
                 }
             ],
             "right" : [
@@ -33,10 +51,10 @@
     "data" : {
         "bool1" : true,
         "bool2" : false,
-        "number1" : 4,
+        "number1" : 1,
         "number2" : 11111111111111,
-        "number3" : 5,
-        "number4" : 6.6,
+        "number3" : 2,
+        "number4" : 3,
         "if_condition" : true
     },
     "declarations" : {
@@ -69,7 +87,7 @@
         "array" : [
             {
                 "instruction_pointer" : ["program", 0],
-                "result_path" : ["data", "number8"]
+                "result_path" : ["data", "RESULT"]
             }
         ]
     }
