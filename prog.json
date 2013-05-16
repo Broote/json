@@ -1,13 +1,13 @@
 {
     "program" : [
         {
-            "type" : "recursive_add",
+            "type" : "recursive_sub",
             "left" : [
                 {
                     "type" : "recursive_add",
                     "left" : [
                         {
-                            "type" : "linear_add",
+                            "type" : "linear_mult",
                             "left" : {
                                 "type" : "pointer",
                                 "path" : ["data", "number1"]
@@ -38,11 +38,11 @@
                     "type" : "linear_add",
                     "left" : {
                         "type" : "pointer",
-                        "path" : ["data", "number3"]
+                        "path" : ["data", "number1"]
                     },
                     "right" : {
                         "type" : "pointer",
-                        "path" : ["data", "number4"]
+                        "path" : ["data", "number2"]
                     }
                 }
             ]
@@ -51,10 +51,10 @@
     "data" : {
         "bool1" : true,
         "bool2" : false,
-        "number1" : 1,
-        "number2" : 11111111111111,
-        "number3" : 2,
-        "number4" : 3,
+        "number1" : 5,
+        "number2" : 6,
+        "number3" : 3,
+        "number4" : 4,
         "if_condition" : true
     },
     "declarations" : {
@@ -78,6 +78,52 @@
                 "right" : {
                     "type" : "pointer",
                     "path" : ["declarations", "recursive_add", 2, "right-result"]
+                }
+            }
+        ],
+        "recursive_sub" : [
+            {
+                "type" : "linear_call",
+                "path" : "left",
+                "result_path" : ["declarations", "recursive_sub", 2, "left-result"]
+            },
+            {
+                "type" : "linear_call",
+                "path" : "right",
+                "result_path" : ["declarations", "recursive_sub", 2, "right-result"]
+            },
+            {
+                "type" : "linear_sub",
+                "left" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_sub", 2, "left-result"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_sub", 2, "right-result"]
+                }
+            }
+        ],
+        "recursive_mult" : [
+            {
+                "type" : "linear_call",
+                "path" : "left",
+                "result_path" : ["declarations", "recursive_mult", 2, "left-result"]
+            },
+            {
+                "type" : "linear_call",
+                "path" : "right",
+                "result_path" : ["declarations", "recursive_mult", 2, "right-result"]
+            },
+            {
+                "type" : "linear_mult",
+                "left" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_mult", 2, "left-result"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_mult", 2, "right-result"]
                 }
             }
         ]

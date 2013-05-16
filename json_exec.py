@@ -3,6 +3,25 @@ import pdb #pdb.set_trace()
 import copy
 from functions_helper import *
 
+SIMPLE_OPERATIONS = ["linear_add", "linear_sub", "linear_mult", "linear_div",
+                    "linear_and", "linear_or", "linear_more", "linear_less", "linear_equal"]
+
+# returns result of simple operation
+def binary_operation(operation):
+    left, right = binary_type(current, text)
+    result = {
+        'linear_add'   : left + right,
+        'linear_sub'   : left - right,
+        'linear_mult'  : left * right,
+        'linear_div'   : left / right,
+        'linear_and'   : left and right,
+        'linear_or'    : left or right,
+        'linear_more'  : left > right,
+        'linear_less'  : left < right,
+        'linear_equal' : left == right
+    }[operation]
+    set_to_path(text, get_result_path(current, stack), result)
+
 f = open('prog.json', 'r')
 text = json.loads(str(f.read()))
 f.close()
@@ -17,43 +36,8 @@ next = get_next(text, current_frame['instruction_pointer'])
 while current_frame:
     current = next
     # check if we have linear_* operation from core
-    if current['type'] == "linear_add":
-        left, right = binary_type(current, text)
-        result = left + right
-        set_to_path(text, get_result_path(current, stack), result)
-    elif current['type'] == "linear_sub":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left - right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_mult":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left * right
-        next = get_next(current['next'])
-    # не забыть про дробные
-    elif current['type'] == "linear_div":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left / right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_and":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left and right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_or":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left or right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_more":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left > right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_less":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left < right
-        next = get_next(current['next'])
-    elif current['type'] == "linear_equal":
-        left, right = binary_type(current, text)
-        current[current[result_path]] = left == right
-        next = get_next(current['next'])
+    if current['type'] in SIMPLE_OPERATIONS:
+        binary_operation(current['type'])
     elif current['type'] == "linear_if":
         if current['condition']['type'] == "pointer":
             condition = get_by_path(text, current['condition']['path'])
@@ -101,3 +85,5 @@ while current_frame:
 
 
 print(json.dumps(text))
+print("\nresult:\n")
+print(json.dumps(text['data']['RESULT']))
