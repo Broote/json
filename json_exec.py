@@ -28,7 +28,6 @@ f.close()
 
 
 stack = text['stack']
-#pdb.set_trace()
 current_frame = get_current_frame(stack)
 next = get_next(text, current_frame['instruction_pointer'])
 

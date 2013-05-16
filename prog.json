@@ -1,33 +1,51 @@
 {
     "program" : [
         {
-            "type" : "recursive_sub",
-            "left" : [
+            "type" : "recursive_equal",
+            "left" :   [
                 {
-                    "type" : "recursive_add",
+                    "type" : "recursive_div",
                     "left" : [
                         {
-                            "type" : "linear_mult",
-                            "left" : {
-                                "type" : "pointer",
-                                "path" : ["data", "number1"]
-                            },
-                            "right" : {
-                                "type" : "pointer",
-                                "path" : ["data", "number2"]
-                            }
+                            "type" : "recursive_add",
+                            "left" : [
+                                {
+                                    "type" : "linear_mult",
+                                    "left" : {
+                                        "type" : "pointer",
+                                        "path" : ["data", "number5"]
+                                    },
+                                    "right" : {
+                                        "type" : "pointer",
+                                        "path" : ["data", "number6"]
+                                    }
+                                }
+                            ],
+                            "right" : [
+                                {
+                                    "type" : "linear_add",
+                                    "left" : {
+                                        "type" : "pointer",
+                                        "path" : ["data", "number2"]
+                                    },
+                                    "right" : {
+                                        "type" : "pointer",
+                                        "path" : ["data", "number4"]
+                                    }
+                                }
+                            ]
                         }
                     ],
                     "right" : [
                         {
-                            "type" : "linear_add",
+                            "type" : "linear_mult",
                             "left" : {
                                 "type" : "pointer",
-                                "path" : ["data", "number3"]
+                                "path" : ["data", "number2"]
                             },
                             "right" : {
                                 "type" : "pointer",
-                                "path" : ["data", "number4"]
+                                "path" : ["data", "number6"]
                             }
                         }
                     ]
@@ -35,10 +53,10 @@
             ],
             "right" : [
                 {
-                    "type" : "linear_add",
+                    "type" : "linear_sub",
                     "left" : {
                         "type" : "pointer",
-                        "path" : ["data", "number1"]
+                        "path" : ["data", "number5"]
                     },
                     "right" : {
                         "type" : "pointer",
@@ -49,13 +67,10 @@
         }
     ],
     "data" : {
-        "bool1" : true,
-        "bool2" : false,
-        "number1" : 5,
-        "number2" : 6,
-        "number3" : 3,
-        "number4" : 4,
-        "if_condition" : true
+        "number5" : 5,
+        "number6" : 6,
+        "number2" : 2,
+        "number4" : 4
     },
     "declarations" : {
         "recursive_add" : [
@@ -124,6 +139,52 @@
                 "right" : {
                     "type" : "pointer",
                     "path" : ["declarations", "recursive_mult", 2, "right-result"]
+                }
+            }
+        ],
+        "recursive_div" : [
+            {
+                "type" : "linear_call",
+                "path" : "left",
+                "result_path" : ["declarations", "recursive_div", 2, "left-result"]
+            },
+            {
+                "type" : "linear_call",
+                "path" : "right",
+                "result_path" : ["declarations", "recursive_div", 2, "right-result"]
+            },
+            {
+                "type" : "linear_div",
+                "left" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_div", 2, "left-result"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_div", 2, "right-result"]
+                }
+            }
+        ],
+        "recursive_equal" : [
+            {
+                "type" : "linear_call",
+                "path" : "left",
+                "result_path" : ["declarations", "recursive_equal", 2, "left-result"]
+            },
+            {
+                "type" : "linear_call",
+                "path" : "right",
+                "result_path" : ["declarations", "recursive_equal", 2, "right-result"]
+            },
+            {
+                "type" : "linear_equal",
+                "left" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_equal", 2, "left-result"]
+                },
+                "right" : {
+                    "type" : "pointer",
+                    "path" : ["declarations", "recursive_equal", 2, "right-result"]
                 }
             }
         ]
