@@ -48,3 +48,19 @@ def get_result_path(current, stack):
         return current['result_path']
     else:
         return get_current_frame(stack)['result_path']
+
+# set result to result_path if operation is simple binary
+def binary_operation(operation, text, stack, current):
+    left, right = binary_type(current, text)
+    result = {
+        'linear_add'   : left + right,
+        'linear_sub'   : left - right,
+        'linear_mult'  : left * right,
+        'linear_div'   : left / right,
+        'linear_and'   : left and right,
+        'linear_or'    : left or right,
+        'linear_more'  : left > right,
+        'linear_less'  : left < right,
+        'linear_equal' : left == right
+    }[operation]
+    set_to_path(text, get_result_path(current, stack), result)
