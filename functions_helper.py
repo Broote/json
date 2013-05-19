@@ -17,9 +17,10 @@ def binary_type(current, text):
     left = current['left']
     right = current['right']
     if left['type'] == "pointer":
-        left = get_by_path(text, left['path'])
-        right = get_by_path(text, right['path'])
-        return left, right
+        left_arg = get_by_path(text, left['path'])
+    if right['type'] == "pointer":
+        right_arg = get_by_path(text, right['path'])
+    return left_arg, right_arg
 
 # get next instruction by address
 def get_next(data, path):
